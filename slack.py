@@ -27,7 +27,6 @@ def main(argv):
          data['username'] = arg
    jdata = json.dumps(data, ensure_ascii=False)
    r = requests.post(url, data=jdata, headers=headers)
-   print r
 
 if __name__ == "__main__":
    main(sys.argv[1:])
