@@ -11,13 +11,13 @@ def main(argv):
    data = {}
    headers = {'Content-type': 'application/json'}
    try:
-      opts, args = getopt.getopt(argv,"hu:t:n:",["url=","text=","name="])
+      opts, args = getopt.getopt(argv,"hu:t:n:c:",["url=","text=","name=","channel="])
    except getopt.GetoptError:
-      print 'slack.py -u <slack webhook url> -t <text to send>'
+      print 'slack.py -u <slack webhook url> -t <text to send> -n <name of bot (optional)> -c <channel (optional)>'
       sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-      	 print 'slack.py -u <slack webhook url> -t <text to send>'
+         print 'slack.py -u <slack webhook url> -t <text to send> -n <name of bot (optional)> -c <channel (optional)>'
          sys.exit()
       elif opt in ("-u", "--url"):
          url = arg
@@ -25,6 +25,8 @@ def main(argv):
 	 data['text'] = arg
       elif opt in ("-n", "--name"):
          data['username'] = arg
+      elif opt in ("-c", "--channel"):
+	 data['channel'] = "#" + arg
    jdata = json.dumps(data, ensure_ascii=False)
    r = requests.post(url, data=jdata, headers=headers)
 
